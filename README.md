@@ -1,8 +1,10 @@
 # 🛰️ Visão Computacional em Sensoriamento Remoto: Rio Amazonas
 
-Este repositório documenta um projeto prático de **Visão Computacional e Machine Learning clássico**, combinando engenharia manual de características (*Feature Engineering*) com o algoritmo **Random Forest** para classificação do uso e cobertura do solo em imagens de sensoriamento remoto (focando no **Rio Amazonas**, áreas de vegetação densa e corpos d'água).
+Este repositório documenta um projeto prático de **aprendizado dos fundamentos de Visão Computacional e Machine Learning clássico**, combinando engenharia manual de características (*Feature Engineering*) com o algoritmo **Random Forest** para classificação do uso e cobertura do solo em imagens de sensoriamento remoto (focando no **Rio Amazonas**, áreas de vegetação densa e corpos d'água).
 
-Diferente de abordagens modernas com redes neurais de "caixa-preta", o objetivo deste projeto é entender a mecânica matemática e estatística, pixel por pixel, extraindo descritores físicos de cor e textura para alimentar um comitê de árvores de decisão.
+> [!NOTE]
+> **Escopo Atual (Prova de Conceito):**
+> Este projeto foi intencionalmente testado e validado com **uma única imagem de satélite** (`teste.jpg`). O objetivo desta primeira fase foi pedagógico: compreender a fundo os algoritmos matemáticos e estatísticos de baixo nível (convoluções de gradiente, dispersão lumínica, janelas deslizantes e comitês de árvores de decisão) antes de delegar a extração de padrões para modelos complexos de caixa-preta.
 
 ---
 
@@ -139,6 +141,23 @@ Siga a sequência abaixo para o pipeline completo:
 
 #### Passo Alternativo: Reutilizar Modelo sem Treinar (Opção 3)
 * Caso já possua um modelo previamente treinado, use a opção **3** para carregar os pesos `.pkl` do disco e pule direto para a opção **4**.
+
+---
+
+## 🔮 Próximos Passos: Da Visão Clássica ao Deep Learning
+
+A abordagem deste repositório representa o fluxo **clássico** de Visão Computacional. O próximo grande salto do projeto será a transição para **Redes Neurais Artificiais e Deep Learning** (como Redes Convolucionais - CNNs e arquiteturas de Segmentação Semântica como **U-Net** ou **SegNet**).
+
+### 🔄 O que muda na metodologia?
+
+| Aspecto | Abordagem Atual (Machine Learning Clássico) | Próximo Passo (Deep Learning / Redes Neurais) |
+| :--- | :--- | :--- |
+| **Extração de Características** | **Manual:** Nós decidimos e programamos a matemática das features (médias RGB, $\sigma$, gradientes $G$). | **Automática (*Feature Learning*):** A rede neural convolucional decide sozinha quais filtros e padrões visuais extrair da imagem bruta. |
+| **Formato do Dataset** | **Planilha Tabular:** Linhas e colunas com números estatísticos calculados previamente. | **Imagens + Máscaras Anotadas:** Dataset de imagens de satélite acompanhadas de suas respectivas máscaras binárias/coloridas anotadas (polígonos ou pintura pixel a pixel delimitando rio vs. mata). |
+| **Granularidade do Mapeamento** | **Grade de Blocos ($16 \times 16$ px):** Classificação bloco a bloco por janela deslizante. | **Pixel a Pixel (Segmentação Semântica):** A rede prevê a classe exata de cada pixel individualmente, gerando contornos ultra-precisos e orgânicos do curso do rio. |
+| **Entrada e Saída** | `[R, G, B, Desvio, Gradiente] -> "rio"` | `[Imagem de Satélite RGB] -> [Máscara Cartográfica Completa]` |
+
+Essa evolução permitirá comparar diretamente o custo computacional, a acurácia das bordas e o esforço de anotação de dados entre a **visão clássica com Random Forest** e o **Deep Learning ponta a ponta**.
 
 ---
 
